@@ -2,14 +2,5 @@
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
   "framework": "nextjs",
-  "installCommand": "npm install",
-  "env": {
-    "NEXTAUTH_URL": "@nextauth-url",
-    "NEXTAUTH_SECRET": "@nextauth-secret",
-    "GITHUB_ID": "@github-id",
-    "GITHUB_SECRET": "@github-secret",
-    "GOOGLE_ID": "@google-id",
-    "GOOGLE_SECRET": "@google-secret",
-    "NEXT_PUBLIC_API_URL": "@api-url"
-  }
+  "installCommand": "npm install"
 }
