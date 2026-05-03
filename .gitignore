@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.local
+.next/
+dist/
+build/
+*.log
+logs/
+.DS_Store
+Thumbs.db
+.turbo/
+coverage/
+/tmp/repomind*
+*.tsbuildinfo
+.vercel

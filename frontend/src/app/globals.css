@@ -1,0 +1,312 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── GitHub Design System ─────────────────────────── */
+:root {
+  /* Canvas */
+  --bg:        #0d1117;
+  --bg2:       #161b22;
+  --bg3:       #1c2128;
+  --bg4:       #22272e;
+  --bg5:       #2d333b;
+
+  /* Borders */
+  --border:    #21262d;
+  --border2:   #30363d;
+  --border3:   #444c56;
+
+  /* Text */
+  --text:      #f0f6fc;
+  --text2:     #8b949e;
+  --text3:     #484f58;
+  --text4:     #6e7681;
+
+  /* GitHub Green (primary accent) */
+  --green:     #3fb950;
+  --green2:    #56d364;
+  --green3:    #238636;
+  --green-bg:  rgba(63, 185, 80, 0.15);
+  --green-border: rgba(63, 185, 80, 0.4);
+
+  /* Secondary accents */
+  --blue:      #58a6ff;
+  --blue-bg:   rgba(88, 166, 255, 0.15);
+  --purple:    #bc8cff;
+  --orange:    #ffa657;
+  --red:       #ff7b72;
+  --yellow:    #e3b341;
+  --cyan:      #39c5cf;
+
+  /* Functional */
+  --success:   #3fb950;
+  --warning:   #d29922;
+  --danger:    #f85149;
+  --info:      #58a6ff;
+}
+
+/* ─── Reset ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code, pre, .font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+}
+
+/* ─── Scrollbar (GitHub-style thin) ─────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border3); }
+
+/* ─── Selection ─────────────────────────────────────── */
+::selection { background: rgba(63,185,80,0.25); color: var(--text); }
+
+/* ─── Animations ─────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideRight {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.4); }
+  50%       { box-shadow: 0 0 0 6px rgba(63, 185, 80, 0); }
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes stream-in {
+  from { opacity: 0; transform: translateX(-4px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes progress-fill {
+  from { width: 0%; }
+}
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.animate-fade-in  { animation: fadeIn 0.4s ease forwards; }
+.animate-spin-slow { animation: spin 2s linear infinite; }
+.animate-blink     { animation: blink 1s step-end infinite; }
+.animate-shimmer {
+  background: linear-gradient(90deg, var(--bg3) 25%, var(--bg4) 50%, var(--bg3) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+.animate-pulse-green { animation: pulse-green 2s infinite; }
+.animate-stream { animation: stream-in 0.2s ease forwards; }
+
+/* Stagger delays */
+.delay-50  { animation-delay: 50ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-250 { animation-delay: 250ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+
+/* ─── Terminal / Code Styles ─────────────────────────── */
+.terminal {
+  background: #010409;
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border2);
+  background: var(--bg2);
+  border-radius: 6px 6px 0 0;
+}
+.terminal-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+}
+
+/* ─── GitHub Card ─────────────────────────────────────── */
+.gh-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.gh-card:hover {
+  border-color: var(--border2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.gh-card-green:hover {
+  border-color: var(--green-border);
+  box-shadow: 0 0 0 1px var(--green-border), 0 8px 24px rgba(63,185,80,0.08);
+}
+
+/* ─── GitHub Button ──────────────────────────────────── */
+.gh-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 5px 16px;
+  font-size: 14px; font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.gh-btn-primary {
+  background: var(--green3);
+  border-color: rgba(240,246,252,0.1);
+  color: #fff;
+}
+.gh-btn-primary:hover { background: #2ea043; }
+.gh-btn-secondary {
+  background: var(--bg3);
+  border-color: var(--border2);
+  color: var(--text);
+}
+.gh-btn-secondary:hover { background: var(--bg4); border-color: var(--border3); }
+.gh-btn-danger {
+  background: #da3633;
+  border-color: rgba(240,246,252,0.1);
+  color: #fff;
+}
+.gh-btn-danger:hover { background: #b91c1c; }
+
+/* ─── Language Colors (pill badges) ──────────────────── */
+.lang-dot {
+  display: inline-block;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ─── Progress Bar ───────────────────────────────────── */
+.gh-progress-track {
+  height: 8px;
+  background: var(--bg4);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.gh-progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.6s ease;
+  background: var(--green);
+}
+
+/* ─── Contribution Graph ────────────────────────────── */
+.contrib-cell {
+  width: 11px; height: 11px;
+  border-radius: 2px;
+  background: var(--bg4);
+  transition: transform 0.1s ease;
+}
+.contrib-cell:hover { transform: scale(1.3); }
+.contrib-0  { background: #161b22; }
+.contrib-1  { background: #0e4429; }
+.contrib-2  { background: #006d32; }
+.contrib-3  { background: #26a641; }
+.contrib-4  { background: #39d353; }
+
+/* ─── Topbar ─────────────────────────────────────────── */
+.gh-topbar {
+  background: rgba(13,17,23,0.95);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ─── Sidebar ─────────────────────────────────────────── */
+.gh-sidebar {
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+}
+.gh-nav-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--text2);
+  transition: background 0.1s ease, color 0.1s ease;
+  border: 1px solid transparent;
+}
+.gh-nav-item:hover {
+  background: var(--bg3);
+  color: var(--text);
+}
+.gh-nav-item.active {
+  background: var(--green-bg);
+  color: var(--green);
+  border-color: var(--green-border);
+  font-weight: 500;
+}
+
+/* ─── Stat Badge ──────────────────────────────────────── */
+.gh-stat {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px;
+  color: var(--text2);
+}
+
+/* ─── Analysis Step ──────────────────────────────────── */
+.analysis-step {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  animation: fadeIn 0.3s ease forwards;
+}
+.step-icon {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-icon.pending  { background: var(--bg4); border: 1px solid var(--border2); }
+.step-icon.running  { background: rgba(88,166,255,0.2); border: 1px solid var(--blue); animation: pulse-green 1.5s infinite; }
+.step-icon.done     { background: rgba(63,185,80,0.2); border: 1px solid var(--green); }
+.step-icon.error    { background: rgba(248,81,73,0.2); border: 1px solid var(--red); }
+
+/* ─── Token / Badge ──────────────────────────────────── */
+.gh-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px;
+  border-radius: 2em;
+  font-size: 11px; font-weight: 600;
+  border: 1px solid;
+}
+.gh-badge-green  { background: rgba(63,185,80,0.15);  border-color: rgba(63,185,80,0.4);  color: var(--green2); }
+.gh-badge-blue   { background: rgba(88,166,255,0.15); border-color: rgba(88,166,255,0.4); color: var(--blue); }
+.gh-badge-red    { background: rgba(248,81,73,0.15);  border-color: rgba(248,81,73,0.4);  color: var(--red); }
+.gh-badge-orange { background: rgba(255,166,87,0.15); border-color: rgba(255,166,87,0.4); color: var(--orange); }
+.gh-badge-purple { background: rgba(188,140,255,0.15);border-color: rgba(188,140,255,0.4);color: var(--purple); }
+
+/* ─── Focus ring ─────────────────────────────────────── */
+:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }

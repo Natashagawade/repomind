@@ -1,0 +1,119 @@
+// This is your Prisma schema file
+// Learn more about it at: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  image         String?
+  provider      String    // "github" | "google"
+  providerId    String
+  githubToken   String?   // encrypted GitHub access token
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  sessions      Session[]
+  analyses      Analysis[]
+  reports       Report[]
+
+  @@unique([provider, providerId])
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Analysis {
+  id          String          @id @default(cuid())
+  userId      String
+  repoName    String
+  repoUrl     String?
+  inputType   InputType
+  status      AnalysisStatus  @default(PENDING)
+  metadata    Json?           // RepoMetadata
+  results     Json?           // AnalysisResults
+  errorMsg    String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  completedAt DateTime?
+
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reports     Report[]
+
+  @@map("analyses")
+}
+
+model Report {
+  id         String     @id @default(cuid())
+  analysisId String
+  userId     String
+  type       ReportType
+  content    String     // markdown, JSON, or text
+  format     String     // "md" | "json" | "txt" | "pdf"
+  createdAt  DateTime   @default(now())
+
+  analysis   Analysis   @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("reports")
+}
+
+model GithubConnection {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  accessToken String   // encrypted
+  login       String
+  avatarUrl   String?
+  repoCount   Int      @default(0)
+  connectedAt DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("github_connections")
+}
+
+enum InputType {
+  ZIP
+  URL
+  GITHUB_OAUTH
+}
+
+enum AnalysisStatus {
+  PENDING
+  EXTRACTING
+  DETECTING_STACK
+  ANALYZING_ARCHITECTURE
+  SCANNING_SECURITY
+  GENERATING_DOCS
+  ANALYZING_QUALITY
+  COMPLETE
+  ERROR
+}
+
+enum ReportType {
+  README
+  RESUME_BULLETS
+  API_DOCS
+  SECURITY
+  DEPLOYMENT
+  INTERVIEW_QUESTIONS
+  CODE_QUALITY
+  FULL_ANALYSIS
+}
