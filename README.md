@@ -185,9 +185,3 @@ Set all env vars in Vercel dashboard.
 | GET | `/api/github/repos` | List user repos |
 | GET | `/api/github/insights` | Profile intelligence |
 | GET | `/api/metrics/:id` | Repository metrics |
-
----
-
-## License
-
-MIT © RepoMind
