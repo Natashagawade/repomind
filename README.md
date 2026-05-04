@@ -10,6 +10,24 @@
 
 ---
 
+## 🚀 Live Demo
+
+<div align="center">
+
+### 🌐 Experience RepoMind Live
+
+[![Frontend](https://img.shields.io/badge/🔗%20Frontend-Live%20App-6366f1?style=for-the-badge&logo=vercel&logoColor=white)](https://repomind-snowy.vercel.app)
+
+[![Backend](https://img.shields.io/badge/⚙️%20Backend-API%20Server-10b981?style=for-the-badge&logo=render&logoColor=white)](https://repomind-16lt.onrender.com)
+
+</div>
+
+<p align="center">
+⚡ Analyze repositories • 🤖 Generate AI insights • 📊 Visualize code metrics • 📄 Build developer-ready reports
+</p>
+
+---
+
 ## Features
 
 - 📦 **Repository Analysis** — Upload ZIP or paste GitHub URL
